@@ -36,12 +36,12 @@ Status: **Yes** = reported; **Partly** = reported in part (the note says what is
 | 12b | D | Handling of predictors (functional form, scaling) | Yes | §4.3 p.3 | |
 | 12c | D | Model type, rationale, building steps, hyperparameter tuning, internal validation | Partly | §4.3 p.3 | Per-model search budgets and the reuse of the primary hyper-parameters in audit and ablation refits are reported. The search spaces and selected values are not. |
 | 12d | D;E | Heterogeneity across clusters | Yes | §4.5 p.4 | Single centre, so there are no clusters. Heterogeneity over time (rolling origin) and across phase and sector strata is analysed. |
-| 12e | D;E | Performance measures and plots, model comparison | Yes | §4.4 p.3 | |
-| 12f | E | Model updating (e.g., recalibration) | Yes | §4.4 p.3; §4.5 p.4 | Recalibration on the validation year; phase-specific refits. |
+| 12e | D;E | Performance measures and plots, model comparison | Yes | §4.4 p.4 | |
+| 12f | E | Model updating (e.g., recalibration) | Yes | §4.4 p.4; §4.5 p.4 | Recalibration on the validation year; phase-specific refits. |
 | 12g | E | How predictions were calculated (formula, code, object, API) | No | — | The analysis notebooks are public; the scripts that produce the reported tables are promised for the published version. |
 | 13 | D;E | Class imbalance methods | Yes | §4.3 p.3 | None used, with reasons. |
 | 14 | D;E | Approaches to model fairness and rationale | Partly | §4.5 "Robustness" p.4; §5.6 p.6 | A race-free refit and results by race and residence are reported. No fairness approach or rationale is stated in the Methods. |
-| 15 | D | Model output, classification thresholds and how identified | Yes | §4.4 p.3; §4.2 p.3 | Calibrated probability; a 30% threshold fixed a priori and the Youden threshold from validation. |
+| 15 | D | Model output, classification thresholds and how identified | Yes | §4.4 p.4; §4.2 p.3 | Calibrated probability; a 30% threshold fixed a priori and the Youden threshold from validation. |
 | 16 | D;E | Differences between development and evaluation data | Yes | Table 1 p.3; §5.1–5.2 p.4 | Drift in prevalence, sector mix and documentation is reported. |
 | 17 | D;E | Ethics committee and consent or waiver | Yes | §3.3 p.2 | Committee and protocol number withheld for review; waiver of consent stated. |
 | 18a | D;E | Funding | NA | — | Withheld for double-blind review. |
