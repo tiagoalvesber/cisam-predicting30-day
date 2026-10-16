@@ -1,5 +1,7 @@
 # PROBAST+AI self-assessment
 
+Version: submitted manuscript of 16 October 2026.
+
 Manuscript: *Predicting 30-Day Emergency or Inpatient Return After Encounters at a Brazilian Public High-Risk Maternity Hospital: Temporal Validation, Triage-Text Enrichment and a Leakage Audit* (ACM SAC 2027, ASH track, double-blind submission).
 
 Tool: PROBAST+AI, Moons et al., BMJ 2025;388:e082505, Table 2. Signalling questions are numbered as in that table and answered Y (yes), PY (probably yes), PN (probably no), N (no), NI (no information) or NA (not applicable). Domain and overall judgements are low, high or unclear.
@@ -14,8 +16,8 @@ This is a self-assessment by the authors. PROBAST+AI is designed for appraisers 
 | Index model | LightGBM on 32 predictors restricted to admission-time information, including obstetric history extracted by rules from the triage fields, with isotonic recalibration. |
 | Comparator | L2-regularised logistic regression, pre-specified as reference. Other learners are secondary. |
 | Outcome | Emergency or inpatient encounter at the same hospital within 30 days after discharge. |
-| Timing | Score computed at the end of an emergency visit or at discharge, using admission-time predictors; 30-day horizon. |
-| Setting and use | Discharge team of a public referral maternity hospital deciding who receives an early contact. |
+| Timing | Time zero is the end of triage or, for direct admissions, the admission; every predictor must exist then. The score is acted on at the end of the emergency visit; 30-day horizon. |
+| Setting and use | Team that discharges women with an antepartum encounter from the obstetric emergency unit of a public referral maternity hospital, deciding who receives an early contact (earlier high-risk prenatal appointment, telephone call or alert to the primary-care unit). This population was chosen after a post hoc decomposition. |
 
 ## Step 2. Type of study
 
@@ -35,7 +37,7 @@ The "episode" variant of the leakage audit is an experimental contrast, not a mo
 
 **Quality concern: low.**
 
-**Applicability concern: unclear.** The intended population is not fixed in one place. §4.2 covers discharges from the emergency unit or a ward. §6 restricts use to antepartum women leaving the emergency unit and advises against use after delivery admissions. The development cohort includes both groups and a small share of outpatient encounters.
+**Applicability concern: low** for the stated population. §4.2 fixes the intended population (antepartum emergency encounters) and §5.4 reports discrimination, calibration, alert load and net benefit in it. The development cohort is broader (all encounters), and 8.7% of antepartum test encounters carry early-loss or contraceptive codes (§3.2); the choice of population was made post hoc.
 
 ### Domain 2. Predictors
 
@@ -44,7 +46,7 @@ The "episode" variant of the leakage audit is an experimental contrast, not a mo
 | 2.1 Defined and assessed in a similar way for all participants? | PN | The obstetric block can be read only where the triage fields exist, which is in emergency encounters. For inpatient and outpatient encounters it is absent and imputed, so the same predictor is measured in one sector and imputed in the other. The triage colour is recorded only in the emergency sector, and documentation coverage drifts over the years (§4.1, §4.3, §5.1). The extraction rules themselves are deterministic and identical for all encounters. |
 | 2.2 Preprocessing similar for all participants? | Y | One pipeline, fitted on the training partition, is applied to all encounters (§4.3). |
 | 2.3 Assessed without knowledge of outcome data? | PY | Predictors are recorded during the index encounter, before the follow-up window opens. The triage fields are not versioned, and 2.4% of triage texts contain a term describing a later event (§4.1). |
-| 2.4 Available at the time the model is intended to be used? | NI | Age, sector, origin, month, triage colour, race, marital status and the triage text exist at admission. The text does not state when the principal ICD-10 code is recorded. If it is recorded at admission or at discharge, the answer is Y for use at discharge. If it is assigned after discharge, for example when the claim is closed, the answer is N. |
+| 2.4 Available at the time the model is intended to be used? | NI | Age, sector, origin, month, triage colour, race, marital status and the triage text exist at time zero. The record does not show when the principal ICD-10 code is entered. In 16.7% of test encounters it already encodes a delivery (43% of delivery admissions, 6% of antepartum emergency encounters); excluding them leaves the estimate in the intended population unchanged (0.684 vs 0.686; §4.2, §5.6). |
 
 **Quality concern: unclear.** The rating rests on question 2.4, which is pending the principal-code timing, and on question 2.1, because the accuracy of the extractor was not measured.
 
@@ -61,7 +63,7 @@ The "episode" variant of the leakage audit is an experimental contrast, not a mo
 
 **Quality concern: unclear.** The definition is transparent and decomposed, and narrower outcomes are refitted in Table 3. Misclassification of returns elsewhere is plausible and of unknown direction with respect to the predictors.
 
-**Applicability concern: high** relative to the motivation in §1, a failed care transition, because the outcome includes planned returns and deliveries. Applicability is lower if the stated construct is recontact for emergency or inpatient care, as in §3.2.
+**Applicability concern: unclear.** The abstract and §3.2 state the outcome as recontact for emergency or inpatient care, and §1 notes that during pregnancy a return also reflects the course of the pregnancy. The outcome still includes planned returns and deliveries; in the intended population, discrimination is unchanged without returns that include a delivery (0.700) or without delivery-only positives (0.692; §5.4).
 
 ### Domain 4. Analysis (development)
 
@@ -80,7 +82,7 @@ The "episode" variant of the leakage audit is an experimental contrast, not a mo
 | Judgement | Rating | Reason |
 |---|---|---|
 | Quality | **unclear** | Domains 2 and 3 are unclear. |
-| Applicability | **high** | Domain 3 is high. |
+| Applicability | **unclear** | Domains 2 and 3 are unclear. |
 
 ## Step 3b. Model evaluation (temporal validation, 2022–2023): risk of bias and applicability
 
@@ -88,9 +90,9 @@ Domains 1–3 use the same data source, predictors and outcome, so their answers
 
 | Domain | Risk of bias | Applicability |
 |---|---|---|
-| 1. Participants and data sources | low | unclear |
+| 1. Participants and data sources | low | low |
 | 2. Predictors | unclear | unclear |
-| 3. Outcome | unclear | high |
+| 3. Outcome | unclear | unclear |
 
 ### Domain 4. Analysis (evaluation)
 
@@ -111,13 +113,13 @@ Domains 1–3 use the same data source, predictors and outcome, so their answers
 | Judgement | Rating | Reason |
 |---|---|---|
 | Risk of bias | **unclear** | Domains 2 and 3 are unclear. |
-| Applicability | **high** | Domain 3 is high. |
+| Applicability | **unclear** | Domains 2 and 3 are unclear. |
 
 ## What would change these ratings
 
 | Domain | Change |
 |---|---|
-| 2 | Stating when the principal ICD-10 code is recorded resolves question 2.4. At admission or discharge it becomes Y; after discharge, the code must leave the model. |
+| 2 | Confirming in the record system when the principal ICD-10 code is entered resolves question 2.4. At time zero it becomes Y; later, the code must leave the model. |
 | 2 | A manual annotation sample of the extractor, with precision and recall by sector, supports question 2.1. |
-| 1 | Fixing a single intended population and reporting performance in it moves domain 1 applicability from unclear to low for that population. The antepartum emergency-unit subgroup is the candidate. |
-| 3 | No analysis can remove planned returns from an administrative recontact outcome. Stating the outcome as recontact throughout, and keeping the narrower refits of Table 3, is what moves domain 3 applicability toward unclear. |
+| 1 | Done in this version: the intended population is fixed and reported (applicability low). A prospective evaluation in that population would remove the post hoc caveat. |
+| 3 | Done in this version: the outcome is stated as recontact and the narrower outcomes are reported (applicability unclear). No analysis can remove planned returns from an administrative recontact outcome. |

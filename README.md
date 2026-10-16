@@ -13,6 +13,13 @@ Recife, Brazil.
 - **Removed:** every textual output (printed tables, `DataFrame` previews, logs). Some of them
   displayed record-level identifiers, so they were stripped before publication. Running the
   notebooks again regenerates them.
+- **Figures:** the paper's figure and the supporting plots of the test partition, in
+  [`figures/`](./figures/) (PDF and PNG):
+  - `fig1_calibration_decision_curve`: calibration by decile and decision curves (Figure 1 of the paper);
+  - `calibration_all_models`: calibration of the six models before and after recalibration;
+  - `decision_curves_all_models`: net benefit of the six models against treat-all and treat-none;
+  - `roc_pr_all_models`: ROC and precision–recall curves;
+  - `model_study`: rolling-origin validation, learning curve and LightGBM hyper-parameter sensitivity.
 - **Reporting:** the completed [TRIPOD+AI checklist](./reporting/TRIPOD-AI_checklist.md) and a
   [PROBAST+AI self-assessment](./reporting/PROBAST-AI_self-assessment.md) of the paper.
 - **Not included:** the data, the trained artifacts, and the auxiliary source modules and SQL
