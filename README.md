@@ -13,6 +13,8 @@ Recife, Brazil.
 - **Removed:** every textual output (printed tables, `DataFrame` previews, logs). Some of them
   displayed record-level identifiers, so they were stripped before publication. Running the
   notebooks again regenerates them.
+- **Reporting:** the completed [TRIPOD+AI checklist](./reporting/TRIPOD-AI_checklist.md) and a
+  [PROBAST+AI self-assessment](./reporting/PROBAST-AI_self-assessment.md) of the paper.
 - **Not included:** the data, the trained artifacts, and the auxiliary source modules and SQL
   extraction queries.
 
